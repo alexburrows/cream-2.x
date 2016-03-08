@@ -1,0 +1,40 @@
+name: Cream
+type: profile
+description: 'Event management profile'
+core: 8.x
+
+distribution:
+  name: CREAM
+
+# Required modules
+dependencies:
+  - node
+  - history
+  - block
+  - block_content
+  - breakpoint
+  - color
+  - config
+  - comment
+  - contextual
+  - contact
+  - quickedit
+  - help
+  - image
+  - menu
+  - number
+  - options
+  - path
+  - taxonomy
+  - dblog
+  - responsive_preview
+  - search
+  - shortcut
+  - toolbar
+  - field_ui
+  - file
+  - rdf
+  - views
+  - views_ui
+  - editor
+  - ckeditor
