@@ -1,0 +1,13 @@
+name: Sponsor
+description: 'Provides Sponsor content type and related configuration. Sponsor details that links into a user id. This will appear on the website and some fields are for backend usage only.'
+type: module
+core: 8.x
+dependencies:
+  - field
+  - file
+  - image
+  - link
+  - menu_ui
+  - node
+  - path
+  - user

@@ -1,3 +1,0 @@
-view mymodule pages:
-  title: 'View my module pages'
-  description: 'Allows users to view pages provided by My Module'

@@ -25,7 +25,6 @@ class Disqus extends RenderElement {
       '#url' => '',
       '#identifier' => '',
       '#callbacks' => '',
-      '#theme_wrappers' => ['disqus_noscript', 'container'],
       '#attributes' => ['id' => 'disqus_thread'],
       '#pre_render' => [
         get_class() . '::generatePlaceholder',

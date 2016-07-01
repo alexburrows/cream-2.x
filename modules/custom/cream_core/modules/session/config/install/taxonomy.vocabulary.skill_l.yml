@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Skill Level'
+vid: skill_l
+description: ''
+hierarchy: 0
+weight: 0

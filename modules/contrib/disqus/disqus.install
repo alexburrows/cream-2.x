@@ -27,3 +27,50 @@ function disqus_update_7001() {
 function disqus_update_7002() {
   variable_del('disqus_userapikey');
 }
+
+/**
+ * Add identifier to field storage definition.
+ */
+function disqus_update_8001() {
+  \Drupal::entityTypeManager()->clearCachedDefinitions();
+
+  $database = \Drupal::database();
+  $property_name = 'identifier';
+  $fields = \Drupal::entityTypeManager()
+    ->getStorage('field_storage_config')
+    ->loadByProperties(['type' => 'disqus_comment']);
+
+  /** @var \Drupal\field\Entity\FieldStorageConfig $field */
+  foreach ($fields as $field) {
+    $schema = $field->getSchema();
+    $target_entity_type = \Drupal::entityTypeManager()
+      ->getDefinition($field->getTargetEntityTypeId());
+    $stored_schema = \Drupal::keyValue('entity.storage_schema.sql')
+      ->get($target_entity_type->id() . '.field_schema_data.' . $field->getName());
+    /** @var \Drupal\Core\Entity\Sql\SqlContentEntityStorage $storage */
+    $storage = \Drupal::entityTypeManager()->getStorage($target_entity_type->id());
+    $table_mapping = $storage->getTableMapping();
+    $column_name = $table_mapping->getFieldColumnName($field, $property_name);
+
+    // Data table.
+    $data_table = $table_mapping->getDedicatedDataTableName($field);
+    if (!$database->schema()->fieldExists($data_table, $column_name)) {
+      $database->schema()->addField($data_table, $column_name, $schema['columns'][$property_name]);
+      $stored_schema[$data_table]['fields'][$column_name] = $schema['columns'][$property_name];
+    }
+
+    // Revision table is relevant.
+    if ($target_entity_type->isRevisionable()) {
+      $revision_table = $table_mapping->getDedicatedRevisionTableName($field);
+      if (!$database->schema()->fieldExists($revision_table, $column_name)) {
+        $database->schema()->addField($revision_table, $column_name, $schema['columns'][$property_name]);
+        $stored_schema[$revision_table]['fields'][$column_name] = $schema['columns'][$property_name];
+      }
+    }
+
+    \Drupal::service('entity.last_installed_schema.repository')
+      ->setLastInstalledFieldStorageDefinition($field);
+    \Drupal::keyValue('entity.storage_schema.sql')
+      ->set($target_entity_type->id() . '.field_schema_data.' . $field->getName(), $stored_schema);
+  }
+}

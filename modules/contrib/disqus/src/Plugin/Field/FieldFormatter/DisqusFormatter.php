@@ -77,7 +77,15 @@ class DisqusFormatter extends FormatterBase implements ContainerFactoryPluginInt
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $element = [];
-    if($items->status == 1 && $this->currentUser->hasPermission('view disqus comments')) {
+
+    // As the Field API only applies the "field default value" to newly created
+    // entities, we'll apply the default value for existing entities.
+    if ($items->count() == 0) {
+      $field_default_value = $items->getFieldDefinition()->getDefaultValue($items->getEntity());
+      $items->status = $field_default_value[0]['status'];
+    }
+
+    if ($items->status == 1 && $this->currentUser->hasPermission('view disqus comments')) {
       $element[] = [
         '#type' => 'disqus',
         '#url' => $items->getEntity()->toUrl('canonical', ['absolute' => TRUE])->toString(),

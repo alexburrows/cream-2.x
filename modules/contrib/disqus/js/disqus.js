@@ -24,9 +24,12 @@ Drupal.disqus = {};
  */
 Drupal.behaviors.disqus = {
   attach: function (context, settings) {
-    $('body').once('disqus').each(function() {
-      // Load the Disqus comments.
-      if (settings.disqus || false) {
+    // Load the Disqus comments.
+    if (settings.disqus || false) {
+
+      // Ensure that the Disqus comments are only loaded once
+      $('body').once('disqus').each(function() {
+
         // Setup the global JavaScript variables for Disqus.
         disqus_shortname = settings.disqus.domain;
         disqus_url = settings.disqus.url;
@@ -73,10 +76,14 @@ Drupal.behaviors.disqus = {
           dataType: 'script',
           cache: false
         });
-      }
+      });
+    }
 
-      // Load the comment numbers JavaScript.
-      if (settings.disqusComments || false) {
+
+    // Load the comment numbers JavaScript.
+    if (settings.disqusComments || false) {
+      // Ensure that comment numbers JavaScript is only loaded once.
+      $('body').once('disqusComments').each(function() {
         disqus_shortname = settings.disqusComments;
         // Make the AJAX call to get the number of comments.
         jQuery.ajax({
@@ -85,8 +92,8 @@ Drupal.behaviors.disqus = {
           dataType: 'script',
           cache: false
         });
-      }
-    });
+      });
+    }
   }
 };
 

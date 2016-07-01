@@ -14,7 +14,6 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\file\FileUsage\FileUsageInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Url;
 
 class DisqusSettingsForm extends ConfigFormBase {
 

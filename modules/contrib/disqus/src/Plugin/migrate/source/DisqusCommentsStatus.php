@@ -7,9 +7,6 @@
 
 namespace Drupal\disqus\Plugin\migrate\source;
 
-use Drupal\Core\Entity\EntityManagerInterface;
-use Drupal\Core\State\StateInterface;
-use Drupal\migrate\Entity\MigrationInterface;
 use Drupal\migrate\Row;
 use Drupal\migrate_drupal\Plugin\migrate\source\DrupalSqlBase;
 

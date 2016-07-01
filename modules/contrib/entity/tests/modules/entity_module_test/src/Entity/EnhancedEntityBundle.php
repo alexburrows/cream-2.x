@@ -8,7 +8,8 @@
 namespace Drupal\entity_module_test\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
-use Drupal\entity\Entity\EntityDescriptionInterface;
+use Drupal\Core\Entity\EntityDescriptionInterface;
+use Drupal\entity\Entity\RevisionableEntityBundleInterface;
 
 /**
  * Provides bundles for the test entity.
@@ -16,11 +17,6 @@ use Drupal\entity\Entity\EntityDescriptionInterface;
  * @ConfigEntityType(
  *   id = "entity_test_enhanced_bundle",
  *   label = @Translation("Entity test with enhancments - Bundle"),
- *   handlers = {
- *     "route_provider" = {
- *       "create" = "\Drupal\entity\Routing\CreateHtmlRouteProvider",
- *     },
- *   },
  *   admin_permission = "administer entity_test_enhanced",
  *   config_prefix = "entity_test_enhanced_bundle",
  *   bundle_of = "entity_test_enhanced",
@@ -33,12 +29,9 @@ use Drupal\entity\Entity\EntityDescriptionInterface;
  *     "label",
  *     "description"
  *   },
- *   links = {
- *     "add-form" = "/entity_test_enhanced_bundle/add",
- *   },
  * )
  */
-class EnhancedEntityBundle extends ConfigEntityBundleBase implements EntityDescriptionInterface {
+class EnhancedEntityBundle extends ConfigEntityBundleBase implements EntityDescriptionInterface, RevisionableEntityBundleInterface {
 
   /**
    * The bundle ID.
@@ -62,6 +55,13 @@ class EnhancedEntityBundle extends ConfigEntityBundleBase implements EntityDescr
   protected $description;
 
   /**
+   * Should new entities of this bundle have a new revision by default.
+   *
+   * @var bool
+   */
+  protected $new_revision = FALSE;
+
+  /**
    * {@inheritdoc}
    */
   public function getDescription() {
@@ -74,6 +74,13 @@ class EnhancedEntityBundle extends ConfigEntityBundleBase implements EntityDescr
   public function setDescription($description) {
     $this->description = $description;
     return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function shouldCreateNewRevision() {
+    return $this->new_revision;
   }
 
 }
