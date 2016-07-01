@@ -1,0 +1,84 @@
+# Schema for the configuration files of the Rules module.
+
+rules.component.*:
+  type: config_entity
+  label: 'Rules component'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    description:
+      type: text
+      label: 'Administrative description'
+    tags:
+      type: sequence
+      label: Tags
+      sequence:
+        type: string
+        label: 'Tag'
+    config_version:
+      type: string
+      label: 'Configuration schema version'
+    component:
+      type: rules_component
+
+rules.reaction.*:
+  type: config_entity
+  label: 'Reaction rule'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    events:
+      type: sequence
+      label: 'Events'
+      sequence:
+        type: mapping
+        label: 'Event'
+        mapping:
+          event_name:
+            type: string
+            label: 'Name'
+          configuration:
+            type: sequence
+            label: 'Configuration'
+            sequence:
+              type: mapping
+    description:
+      type: text
+      label: 'Administrative description'
+    tags:
+      type: sequence
+      label: Tags
+      sequence:
+        type: string
+        label: 'Tag'
+    config_version:
+      type: string
+      label: 'Configuration schema version'
+    expression:
+      type: rules_expression.[id]
+      label: 'Expression configuration'
+
+rules.settings:
+  type: config_object
+  label: 'Rules settings'
+  mapping:
+    log_errors:
+      type: string
+      label: 'Logging of Rules evaluation errors'
+    debug_log:
+      type: boolean
+      label: 'Log debug information to the available loggers'
+    debug:
+      type: boolean
+      label: 'Show debug information'
+    log_level:
+      type: string
+      label: 'Log level'

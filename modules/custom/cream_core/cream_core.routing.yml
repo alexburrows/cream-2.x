@@ -1,0 +1,6 @@
+cream_config:
+  path: /admin/config/cream
+  defaults:
+    _controller: Drupal\cream_core\Controller\CreamCoreController\::config
+  requirements:
+    _permission: 'access content'

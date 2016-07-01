@@ -1,0 +1,12 @@
+entity.commerce_store.collection:
+  title: 'Stores'
+  route_name: 'entity.commerce_store.collection'
+  parent: 'commerce.admin_commerce'
+  description: 'Manage your stores.'
+
+entity.commerce_store_type.collection:
+  title: 'Store types'
+  route_name: 'entity.commerce_store_type.collection'
+  parent: 'commerce.configuration'
+  description: 'Manage your store types.'
+

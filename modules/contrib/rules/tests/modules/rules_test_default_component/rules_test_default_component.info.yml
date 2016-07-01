@@ -1,0 +1,14 @@
+name: Rules test default component
+type: module
+description: 'Support module for testing Rules config defaults.'
+package: Rules
+# core: 8.x
+dependencies:
+  - rules
+  - rules_test
+
+# Information added by Drupal.org packaging script on 2016-03-07
+version: '8.x-3.0-alpha1'
+core: '8.x'
+project: 'rules'
+datestamp: 1457387804

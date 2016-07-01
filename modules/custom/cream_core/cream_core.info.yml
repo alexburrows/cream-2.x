@@ -1,0 +1,5 @@
+name: Cream core
+type: module
+description: Contains core requirements for CREAM
+package: Cream
+core: 8.x

@@ -1,0 +1,145 @@
+<?php
+
+/**
+ * @file
+ * Hook implementations for the Rules module.
+ */
+
+use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
+use Drupal\rules\Event\EntityEvent;
+use Drupal\rules\Event\UserLoginEvent;
+use Drupal\rules\Event\UserLogoutEvent;
+use Drupal\rules\Event\SystemCronEvent;
+
+/**
+ * Implements hook_help().
+ */
+function rules_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'entity.rules_reaction_rule.collection':
+      $output = t('Reaction rules, listed below, react on selected events on the site. Each reaction rule may fire any number of <em>actions</em>, and may have any number of <em>conditions</em> that must be met for the actions to be executed. You can also set up <a href=":url1">components</a> – stand-alone sets of Rules configuration that can be used in Rules and other parts of your site. See <a href=":url2">the online documentation</a> for an introduction on how to use Rules.', [
+        ':url1' => Url::fromRoute('entity.rules_component.collection')->toString(),
+        ':url2' => 'https://www.drupal.org/node/298480',
+      ]);
+      return $output;
+
+    case 'help.page.rules':
+      $output = '<h3>' . t('About') . '</h3>';
+      $output .= '<p>';
+      $output .= t('The Rules module allows site administrators to define conditionally executed actions based on occurring events (ECA-rules). For more information, see the <a href=":url1" target="_blank">online documentation for the Rules module</a> and the current <a href=":url2" target="_blank">Rules documentation for Drupal 8 on Gitbooks</a>.', [
+        ':url1' => 'https://www.drupal.org/project/rules',
+        ':url2' => 'https://thefubhy.gitbooks.io/rules/content/',
+      ]);
+      $output .= '</p>';
+      $output .= '<h3>' . t('Uses') . '</h3>';
+      $output .= '<dl>';
+      $output .= '<dt>' . t('Reaction rules') . '</dt>';
+      $output .= '<dd>' . t('Reaction rules associate one or more reactions to one or more specific site events. Execution of a reaction rule actions can optionnally be tied to one or more conditions. To list and update existing reaction rules and to create a new one, visit the <a href=":url">reaction rules overview page</a>.', [':url' => Url::fromRoute('entity.rules_reaction_rule.collection')->toString()]) . '</dd>';
+      $output .= '<dt>' . t('Components') . '</dt>';
+      $output .= '<dd>' . t('Rule components allows to define reusable combined actions which can optionnaly be tied to one or more conditions. Components are useable as actions in reaction rules or in other components. To list and update existing rule components and to create a new one, visit the <a href=":url">components overview pages</a>.', [':url' => Url::fromRoute('entity.rules_component.collection')->toString()]) . '</dd>';
+      $output .= '<dt>' . t('General settings') . '</dt>';
+      $output .= '<dd>' . t('The Rules modules allows to set global settings settings, such as logging. Visit the <a href=":url">rules settings page</a> to view and update current settings.', [':url' => Url::fromRoute('rules.settings')->toString()]) . '</dd>';
+      $output .= '</dl>';
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_user_login().
+ */
+function rules_user_login($account) {
+  // Set the account twice on the event: as the main subject but also in the
+  // list of arguments.
+  $event = new UserLoginEvent($account);
+  $event_dispatcher = \Drupal::service('event_dispatcher');
+  $event_dispatcher->dispatch(UserLoginEvent::EVENT_NAME, $event);
+}
+
+/**
+ * Implements hook_user_logout().
+ */
+function rules_user_logout($account) {
+  // Set the account twice on the event: as the main subject but also in the
+  // list of arguments.
+  $event = new UserLogoutEvent($account, ['account' => $account]);
+  $event_dispatcher = \Drupal::service('event_dispatcher');
+  $event_dispatcher->dispatch(UserLogoutEvent::EVENT_NAME, $event);
+}
+
+/**
+ * Implements hook_entity_view().
+ */
+function rules_entity_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
+  // Only handle content entities and ignore config entities.
+  if ($entity instanceof ContentEntityInterface) {
+    $entity_type_id = $entity->getEntityTypeId();
+    $event = new EntityEvent($entity, [$entity_type_id => $entity]);
+    $event_dispatcher = \Drupal::service('event_dispatcher');
+    $event_dispatcher->dispatch("rules_entity_view:$entity_type_id", $event);
+  }
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function rules_entity_presave(EntityInterface $entity) {
+  // Only handle content entities and ignore config entities.
+  if ($entity instanceof ContentEntityInterface) {
+    $entity_type_id = $entity->getEntityTypeId();
+    $event = new EntityEvent($entity, [$entity_type_id => $entity]);
+    $event_dispatcher = \Drupal::service('event_dispatcher');
+    $event_dispatcher->dispatch("rules_entity_presave:$entity_type_id", $event);
+  }
+}
+
+/**
+ * Implements hook_entity_delete().
+ */
+function rules_entity_delete(EntityInterface $entity) {
+  // Only handle content entities and ignore config entities.
+  if ($entity instanceof ContentEntityInterface) {
+    $entity_type_id = $entity->getEntityTypeId();
+    $event = new EntityEvent($entity, [$entity_type_id => $entity]);
+    $event_dispatcher = \Drupal::service('event_dispatcher');
+    $event_dispatcher->dispatch("rules_entity_delete:$entity_type_id", $event);
+  }
+}
+
+/**
+ * Implements hook_entity_insert().
+ */
+function rules_entity_insert(EntityInterface $entity) {
+  // Only handle content entities and ignore config entities.
+  if ($entity instanceof ContentEntityInterface) {
+    $entity_type_id = $entity->getEntityTypeId();
+    $event = new EntityEvent($entity, [$entity_type_id => $entity]);
+    $event_dispatcher = \Drupal::service('event_dispatcher');
+    $event_dispatcher->dispatch("rules_entity_insert:$entity_type_id", $event);
+  }
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function rules_entity_update(EntityInterface $entity) {
+  // Only handle content entities and ignore config entities.
+  if ($entity instanceof ContentEntityInterface) {
+    $entity_type_id = $entity->getEntityTypeId();
+    $event = new EntityEvent($entity, [$entity_type_id => $entity]);
+    $event_dispatcher = \Drupal::service('event_dispatcher');
+    $event_dispatcher->dispatch("rules_entity_update:$entity_type_id", $event);
+  }
+}
+
+/**
+ * Implements hook_cron().
+ */
+function rules_cron() {
+  $event = new SystemCronEvent();
+  $event_dispatcher = \Drupal::service('event_dispatcher');
+  $event_dispatcher->dispatch(SystemCronEvent::EVENT_NAME, $event);
+}

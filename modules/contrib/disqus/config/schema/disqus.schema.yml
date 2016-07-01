@@ -1,0 +1,61 @@
+# Schema for the configuration files of the disqus module.
+
+disqus.settings:
+  type: mapping
+  label: 'Disqus Settings'
+  mapping:
+    disqus_domain:
+      type: string
+      label: 'Shortname'
+    behavior:
+      type: mapping
+      label: "Behavior"
+      mapping:
+        disqus_localization:
+          type: boolean
+          label: 'Localization support'
+        disqus_inherit_login:
+          type: boolean
+          label: 'Inherit User Credentials'
+        disqus_disable_mobile:
+          type: boolean
+          label: 'Disable mobile optimized version'
+        disqus_track_newcomment_ga:
+          type: boolean
+          label: 'Track new comments in Google Analytics'
+    advanced:
+      type: mapping
+      label: 'Advanced'
+      mapping:
+        disqus_useraccesstoken:
+          type: string
+          label: 'User Access Token'
+        disqus_publickey:
+          type: string
+          label: 'Public Key'
+        disqus_secretkey:
+          type: string
+          label: 'Secret Key'
+        api:
+          type: mapping
+          label: 'Disqus API Settings'
+          mapping:
+            disqus_api_update:
+              type: boolean
+              label: 'Update Threads'
+            disqus_api_delete:
+              type: string
+              label: 'Close/Remove Thread'
+        sso:
+          type: mapping
+          label: 'Single Sign-On'
+          mapping:
+            disqus_sso:
+              type: boolean
+              label: 'Use Single Sign-On'
+            disqus_use_site_logo:
+              type: boolean
+              label: 'Use Site Logo'
+            disqus_logo:
+              type: uri
+              label: 'Custom Logo'

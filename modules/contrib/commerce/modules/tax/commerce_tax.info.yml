@@ -1,0 +1,14 @@
+name: Commerce Tax
+type: module
+description: 'Provides tax functionality.'
+package: Commerce
+# core: 8.x
+dependencies:
+  - commerce
+  - address
+
+# Information added by Drupal.org packaging script on 2016-03-02
+version: '8.x-2.0-alpha3'
+core: '8.x'
+project: 'commerce'
+datestamp: 1456940362

@@ -1,0 +1,24 @@
+id: d7_disqus_field
+label: Drupal 7 Disqus fields
+migration_tags:
+  - Drupal 7
+source:
+  plugin: disqus_enabled_content_types
+  constants:
+    entity_type: node
+    name: disqus
+    label: 'Disqus'
+    default_identifier: ''
+process:
+  entity_type: 'constants/entity_type'
+  bundle: type
+  label: 'constants/label'
+  field_name: 'constants/name'
+  'default_value/0/status': default
+  'default_value/0/identifier': 'constants/default_identifier'
+destination:
+  plugin: entity:field_config
+migration_dependencies:
+  required:
+    - d7_disqus_field_storage
+    - d7_node_type

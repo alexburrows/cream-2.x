@@ -1,0 +1,4 @@
+'configure store':
+  title: 'Configure store settings'
+  description: 'Allows users to update store currency and contact settings.'
+  'restrict access': TRUE

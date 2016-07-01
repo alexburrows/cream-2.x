@@ -1,0 +1,7 @@
+testform.form:
+  path: '/test-form'
+  defaults:
+    _title: 'Test form'
+    _form: '\Drupal\testform\Form\TestForm'
+  requirements:
+    _access: 'TRUE'

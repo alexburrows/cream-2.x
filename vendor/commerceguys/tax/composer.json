@@ -1,0 +1,40 @@
+{
+    "name": "commerceguys/tax",
+    "type": "library",
+    "description": "Tax library with a flexible data model, predefined tax rates, powerful resolving logic.",
+    "keywords": ["tax", "vat"],
+    "license": "MIT",
+    "require": {
+        "php": ">=5.4.0",
+        "commerceguys/enum": "~1.0",
+        "commerceguys/addressing": "~0.5",
+        "commerceguys/zone": "~0.5",
+        "doctrine/collections": "~1.0"
+    },
+    "require-dev": {
+        "symfony/intl": ">=2.3",
+        "phpunit/phpunit": "~4.0",
+        "mikey179/vfsStream": "1.*"
+    },
+    "autoload": {
+        "psr-4": { "CommerceGuys\\Tax\\": "src" }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "CommerceGuys\\Tax\\Tests\\": "tests"
+        }
+    },
+    "authors": [
+        {
+            "name": "Bojan Zivanovic"
+        },
+        {
+            "name": "David Kitchen"
+        }
+    ],
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.x-dev"
+        }
+    }
+}

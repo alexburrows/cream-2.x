@@ -1,0 +1,42 @@
+langcode: en
+status: true
+dependencies: {}
+id: rules_test_default_component
+label: Rules test default component
+description: 'Tests adding Rules component by default.'
+tags:
+  - 'test'
+config_version: '3.0'
+component:
+  context_definitions:
+    user:
+      type: 'entity:user'
+      label: User
+      description: 'The user whose mail address to print.'
+  provided_context_definitions:
+    concatenated:
+      type: 'string'
+      label: Concatenated text
+      description: 'The concatenated text.'
+  expression:
+    id: rules_rule
+    conditions:
+      id: rules_and
+      conditions: {}
+    actions:
+      id: rules_action_set
+      actions:
+        - id: rules_action
+          action_id: rules_system_message
+          context_values:
+            type: 'status'
+          context_mapping:
+            message: 'user.mail.value'
+          context_processors: {  }
+          provides_mapping: {  }
+        - id: rules_action
+          action_id: rules_test_string
+          context_mapping:
+            text: 'user.mail.value'
+          context_processors: {  }
+          provides_mapping: {  }

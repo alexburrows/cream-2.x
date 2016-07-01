@@ -1,0 +1,41 @@
+id: disqus_comment_import
+label : Import Disqus comments
+source:
+  plugin: disqus_source
+  constants:
+    field_name: disqus
+    comment_type: comment_no_subject
+    comment_body/format: filtered_html
+    thread: 0
+process:
+  cid: id
+  pid: pid
+  entity_id:
+    plugin: disqus_comment_entity_id
+    source: identifier
+  entity_type:
+    plugin: disqus_comment_entity_type
+    source: identifier
+  field_name: constants/field_name
+  comment_type: constants/comment_no_subject
+  uid: uid
+  name: name
+  mail: email
+  homepage: url
+  hostname: ipAddress
+  created:
+    -
+       plugin: callback
+       callable: strtotime
+       source: createdAt
+  changed:
+    -
+       plugin: callback
+       callable: strtotime
+       source: createdAt
+  status: isApproved
+  thread: constants/thread
+  comment_body/value: comment
+  comment_body/format: constants/comment_body/format
+destination:
+  plugin: entity:comment

@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * Implements hook_requirements().
+ *
+ * Check that the Commerce Guys' Libraries have been installed.
+ */
+function commerce_price_requirements($phase) {
+  $requirements = [];
+
+  if ($phase == 'install') {
+    if (!class_exists('\CommerceGuys\Intl\Currency\CurrencyRepository')) {
+      $requirements['commerce_price_library'] = [
+        'description' => t("Commerce Price requires the commerceguys/intl library."),
+        'severity' => REQUIREMENT_ERROR,
+      ];
+    }
+  }
+
+  return $requirements;
+}

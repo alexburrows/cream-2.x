@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * @file
+ * Provides any upgrade path requirements.
+ */
+
+/**
+ * Updates from Drupal 6 to 7.
+ */
+function disqus_update_7000() {
+  // Nothing.
+}
+
+/**
+ * Updates Disqus with support for toggling comments per node.
+ */
+function disqus_update_7001() {
+  if (!db_table_exists('disqus')) {
+    drupal_install_schema('disqus');
+  }
+}
+
+/**
+ * Remove deprecated variable.
+ */
+function disqus_update_7002() {
+  variable_del('disqus_userapikey');
+}

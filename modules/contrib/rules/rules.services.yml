@@ -1,0 +1,51 @@
+services:
+  plugin.manager.rules_expression:
+    class: Drupal\rules\Engine\ExpressionManager
+    arguments: ['@container.namespaces', '@module_handler', '@uuid']
+  plugin.manager.rules_action:
+    class: Drupal\rules\Core\RulesActionManager
+    parent: default_plugin_manager
+  plugin.manager.rules_event:
+    class: Drupal\rules\Core\RulesEventManager
+    arguments: ['@module_handler']
+  plugin.manager.rules_data_processor:
+    class: Drupal\rules\Context\DataProcessorManager
+    arguments: ['@container.namespaces', '@module_handler']
+  plugin.manager.rules_ui:
+    class: Drupal\rules\Ui\RulesUiManager
+    arguments: ['@module_handler']
+  plugin.manager.typed_data_filter:
+    class: Drupal\rules\TypedData\DataFilterManager
+    arguments: ['@container.namespaces', '@module_handler']
+  logger.channel.rules:
+    class: Drupal\rules\Logger\RulesLoggerChannel
+    arguments: ['@config.factory']
+  logger.ruleslog:
+    class: Drupal\rules\Logger\RulesLog
+    tags:
+      - { name: logger }
+    arguments: ['@event_dispatcher', '@logger.log_message_parser']
+  rules.event_subscriber:
+    class: Drupal\rules\EventSubscriber\GenericEventSubscriber
+    arguments: ['@entity_type.manager', '@plugin.manager.rules_event']
+    tags:
+      - { name: 'event_subscriber' }
+  rules.redirect_event_subscriber:
+    class: Drupal\rules\EventSubscriber\RedirectEventSubscriber
+    tags:
+      - { name: 'event_subscriber' }
+  rules.ui_route_enhancer:
+    class: Drupal\rules\Routing\RulesUiRouteEnhancer
+    arguments: ['@plugin.manager.rules_ui']
+    tags:
+      - { name: route_enhancer }
+  rules.ui_route_subscriber:
+    class: Drupal\rules\Routing\RulesUiRouteSubscriber
+    arguments: ['@plugin.manager.rules_ui']
+    tags:
+      - { name: 'event_subscriber' }
+  typed_data.data_fetcher:
+    class: Drupal\rules\TypedData\DataFetcher
+  typed_data.placeholder_resolver:
+    class: Drupal\rules\TypedData\PlaceholderResolver
+    arguments: ['@typed_data.data_fetcher', '@plugin.manager.typed_data_filter']

@@ -1,0 +1,29 @@
+langcode: en
+status: true
+id: d7_disqus_entity_display
+migration_tags:
+  - 'Drupal 7'
+label: 'Disqus display configuration'
+source:
+  plugin: disqus_enabled_content_types
+  constants:
+    entity_type: node
+    view_mode: default
+    name: disqus
+    type: disqus_comment
+    options:
+      label: hidden
+      type: disqus_comment
+      weight: 20
+process:
+  entity_type: 'constants/entity_type'
+  bundle: type
+  options: 'constants/options'
+  view_mode: 'constants/view_mode'
+  field_name: 'constants/name'
+  type: constants/type
+destination:
+  plugin: component_entity_display
+migration_dependencies:
+  required:
+    - d7_disqus_field

@@ -1,0 +1,4 @@
+services:
+  commerce_product.line_item_type_map:
+    class: Drupal\commerce_product\LineItemTypeMap
+    arguments: ['@cache.data', '@entity_type.manager']

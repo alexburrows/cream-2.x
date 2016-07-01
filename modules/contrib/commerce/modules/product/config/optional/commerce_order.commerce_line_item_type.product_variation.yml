@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - commerce_product
+label: 'Product variation'
+id: product_variation
+purchasableEntityType: commerce_product_variation
+orderType: default

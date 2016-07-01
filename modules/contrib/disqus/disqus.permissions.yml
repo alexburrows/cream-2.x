@@ -1,0 +1,12 @@
+administer disqus:
+  title: 'Administer Disqus'
+  description: 'Perform administrative actions with Disqus.'
+view disqus comments:
+  title: 'View Disqus comments'
+  description: 'Allows access to view Disqus comments.'
+display disqus comments on profile:
+  title: 'Disqus comments in profile'
+  description: 'When enabled, will display Disqus comments on the profiles of users belonging to this role.'
+toggle disqus comments:
+  title: 'Toggle Disqus comments'
+  description: 'When enabled, will allow users to toggle comments on and off on nodes.'

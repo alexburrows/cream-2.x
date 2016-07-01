@@ -1,0 +1,5 @@
+disqus.settings:
+  title: 'Disqus'
+  parent: system.admin_config_services
+  description: 'Provides configuration options for the Disqus comment system.'
+  route_name: disqus.settings

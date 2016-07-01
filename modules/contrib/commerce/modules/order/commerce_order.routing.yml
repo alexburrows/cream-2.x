@@ -1,0 +1,56 @@
+entity.commerce_order.add_page:
+  path: '/admin/commerce/orders/add'
+  defaults:
+    _form: '\Drupal\commerce_order\Form\OrderAddForm'
+    _title: 'Create a new order'
+  requirements:
+    _entity_create_access: 'commerce_order'
+
+entity.commerce_order.reassign_form:
+  path: '/admin/commerce/orders/{commerce_order}/reassign'
+  defaults:
+    _form: '\Drupal\commerce_order\Form\OrderReassignForm'
+    _title: 'Reassign order'
+  options:
+    parameters:
+      commerce_order:
+        type: 'entity:commerce_order'
+  requirements:
+    _permission: 'administer orders'
+
+entity.commerce_order_type.collection:
+  path: '/admin/commerce/config/order-types'
+  defaults:
+    _entity_list: 'commerce_order_type'
+    _title: 'Order types'
+  requirements:
+    _permission: 'administer order types'
+
+entity.commerce_order.collection:
+  path: '/admin/commerce/orders'
+  defaults:
+    _entity_list: 'commerce_order'
+    _title: 'Orders'
+  requirements:
+    _permission: 'administer orders'
+
+entity.commerce_order.user_view:
+  path: '/user/{user}/orders/{commerce_order}'
+  defaults:
+    _entity_view: 'commerce_order.user'
+    _title: 'Order information'
+  requirements:
+    _entity_access: 'commerce_order.view'
+  options:
+    parameters:
+      entity:
+        user: 'entity:user'
+        commerce_order: 'entity:order'
+
+entity.commerce_line_item_type.collection:
+  path: '/admin/commerce/config/line-item-types'
+  defaults:
+    _entity_list: 'commerce_line_item_type'
+    _title: 'Line item types'
+  requirements:
+    _permission: 'administer line item types'

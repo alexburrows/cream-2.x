@@ -1,0 +1,18 @@
+id: d7_disqus_field_storage
+label: Drupal 7 Disqus field storage
+migration_tags:
+  - Drupal 7
+source:
+  plugin: md_empty
+  constants:
+    entity_type: node
+    type: disqus_comment
+    name: disqus
+    cardinality: 1
+process:
+  entity_type: 'constants/entity_type'
+  field_name: 'constants/name'
+  type: 'constants/type'
+  cardinality: 'constants/cardinality'
+destination:
+  plugin: md_entity:field_storage_config

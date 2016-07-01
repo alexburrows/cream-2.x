@@ -1,0 +1,5 @@
+{
+    "require": {
+        "drexarj/disqus-php": "dev-master"
+   }
+}

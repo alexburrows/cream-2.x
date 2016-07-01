@@ -1,0 +1,68 @@
+commerce_product.commerce_product_type.*:
+  type: config_entity
+  label: 'Product type'
+  mapping:
+    id:
+      type: string
+      label: 'Type'
+    label:
+      type: label
+      label: 'Label'
+    description:
+      type: text
+      label: 'Description'
+    variationType:
+      type: string
+      label: 'Variation type'
+
+commerce_product.commerce_product_variation_type.*:
+  type: config_entity
+  label: 'Product variation type'
+  mapping:
+    id:
+      type: string
+      label: 'Type'
+    label:
+      type: label
+      label: 'Label'
+    lineItemType:
+      type: string
+      label: 'Line item type'
+    generateTitle:
+      type: boolean
+      label: 'Generate variation titles based on attribute values'
+
+field.field.*.*.*.third_party.commerce_product:
+  type: mapping
+  label: 'Product variation attributes'
+  mapping:
+    attribute_field:
+        type: boolean
+        label: 'Whether or not this field should be used as an attribute'
+    attribute_widget:
+        type: string
+        label: 'The widget to use for the attribute'
+    attribute_widget_title:
+        type: label
+        label: 'The title of the attribute for the Add to Cart form'
+
+field.formatter.settings.commerce_add_to_cart:
+  type: mapping
+  mapping:
+    show_quantity:
+      type: boolean
+      label: 'Whether to display a quantity input field on the add to cart form.'
+    default_quantity:
+      type: string
+      label: 'Default quantity'
+    combine:
+      type: boolean
+      label: 'Whether to attempt to combine line items containing the same product variation'
+
+action.configuration.commerce_publish_product:
+  type: action_configuration_default
+  label: 'Configuration for the Publish product action'
+
+action.configuration.commerce_unpublish_product:
+  type: action_configuration_default
+  label: 'Configuration for the Unpublish product action'

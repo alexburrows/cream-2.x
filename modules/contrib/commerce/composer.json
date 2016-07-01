@@ -1,0 +1,13 @@
+{
+    "name": "drupal/commerce",
+    "type": "drupal-module",
+    "description": "Drupal Commerce is a flexible eCommerce solution.",
+    "homepage": "http://drupal.org/project/commerce",
+    "license": "GPL-2.0+",
+    "require": {
+        "commerceguys/intl": "dev-master",
+        "commerceguys/pricing": "dev-master",
+        "commerceguys/tax": "dev-master"
+    },
+    "minimum-stability": "dev"
+}
