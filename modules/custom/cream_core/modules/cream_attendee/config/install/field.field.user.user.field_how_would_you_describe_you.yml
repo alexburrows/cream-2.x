@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_how_would_you_describe_you
+  module:
+    - options
+    - user
+id: user.user.field_how_would_you_describe_you
+field_name: field_how_would_you_describe_you
+entity_type: user
+bundle: user
+label: 'How would you describe your company?'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

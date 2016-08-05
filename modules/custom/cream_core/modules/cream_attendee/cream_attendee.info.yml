@@ -1,0 +1,13 @@
+name: 'Cream attendee'
+description: 'Specific requirements for user signup and profile'
+type: module
+core: 8.x
+dependencies:
+  - cream_attendee
+  - field
+  - file
+  - image
+  - options
+  - path
+  - rdf
+  - user
