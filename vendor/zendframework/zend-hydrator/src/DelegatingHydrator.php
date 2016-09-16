@@ -9,21 +9,21 @@
 
 namespace Zend\Hydrator;
 
-use Interop\Container\ContainerInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 class DelegatingHydrator implements HydratorInterface
 {
     /**
-     * @var ContainerInterface
+     * @var ServiceLocatorInterface
      */
     protected $hydrators;
 
     /**
      * Constructor
      *
-     * @param ContainerInterface $hydrators
+     * @param ServiceLocatorInterface $hydrators
      */
-    public function __construct(ContainerInterface $hydrators)
+    public function __construct(ServiceLocatorInterface $hydrators)
     {
         $this->hydrators = $hydrators;
     }

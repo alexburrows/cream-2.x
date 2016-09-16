@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\config\Tests\ConfigSingleImportExportTest.
- */
-
 namespace Drupal\config\Tests;
 
 use Drupal\Component\Serialization\Yaml;
@@ -25,7 +20,10 @@ class ConfigSingleImportExportTest extends WebTestBase {
   public static $modules = [
     'block',
     'config',
-    'config_test'
+    'config_test',
+    // Adding language module makes it possible to involve non-default
+    // (language.xx) collections in import/export operations.
+    'language',
   ];
 
   protected function setUp() {
@@ -42,6 +40,16 @@ class ConfigSingleImportExportTest extends WebTestBase {
     $uuid = \Drupal::service('uuid');
 
     $this->drupalLogin($this->drupalCreateUser(array('import configuration')));
+
+    // Attempt an import with invalid YAML.
+    $edit = [
+      'config_type' => 'action',
+      'import' => '{{{',
+    ];
+
+    $this->drupalPostForm('admin/config/development/configuration/single/import', $edit, t('Import'));
+    $this->assertText('The import failed with the following message: Malformed inline YAML string ({{{) at line 1 (near &quot;{{{&quot;)');
+
     $import = <<<EOD
 label: First
 weight: 0

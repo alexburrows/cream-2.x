@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Core\Database\Driver\pgsql\Schema.
- */
-
 namespace Drupal\Core\Database\Driver\pgsql;
 
 use Drupal\Component\Utility\Unicode;
@@ -28,7 +23,7 @@ class Schema extends DatabaseSchema {
    * This is collected by DatabaseConnection_pgsql->queryTableInformation(),
    * by introspecting the database.
    *
-   * @see DatabaseConnection_pgsql->queryTableInformation()
+   * @see \Drupal\Core\Database\Driver\pgsql\Schema::queryTableInformation()
    * @var array
    */
   protected $tableInformation = array();
@@ -849,6 +844,7 @@ class Schema extends DatabaseSchema {
     // Modify the hash so it's safe to use in PostgreSQL identifiers.
     return strtr($hash, array('+' => '_', '/' => '_', '=' => ''));
   }
+
 }
 
 /**
